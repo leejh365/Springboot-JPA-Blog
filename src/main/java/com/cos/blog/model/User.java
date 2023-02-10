@@ -11,7 +11,16 @@ import javax.persistence.Id;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 //ORM -> JAVA(다른언어포함) Object -> 테이블로 매핑해주는 기술
+@Builder //빌더패턴
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
 @Entity //User클래스가 MySQL 에 테이블이 생성된다.
 public class User {
 
@@ -27,7 +36,7 @@ public class User {
 	private String password;
 	
 	@Column(nullable = false, length = 50)
-	private String email;
+	private String email; //myEmail, my_email
 	
 	@ColumnDefault("'user'")
 	private String role; //Enum을 쓰는게 좋다.(도메인을 만들수있기때문_도메인은 범위를 의미(성별의 도메인은 남,여)) //admin, user, manager
