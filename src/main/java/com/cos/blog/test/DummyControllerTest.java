@@ -6,10 +6,12 @@ import java.util.function.Supplier;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,6 +28,17 @@ public class DummyControllerTest {
 
 	@Autowired //의존성주입(DI)
 	private UserRepository userRepository;
+	
+	@DeleteMapping("/dummy/user/{id}")
+	public String delete(@PathVariable int id) {
+		try {
+			userRepository.deleteById(id);
+		} catch (EmptyResultDataAccessException e) {
+			return "삭제실패! 해당 id는 DB에 없습니다. ";
+		}
+		return "삭제되었습니다. id : " + id;
+	}
+	
 	
 	//save함수는 id를 전달하지 않으면 insert 해주고
 	//save함수는 id를 전달하면 해당 id에 대한 데이터가 없으면 update를 해주고
@@ -48,7 +61,7 @@ public class DummyControllerTest {
 		//userRepository.save(user);
 		
 		//더티체킹
-		return null;
+		return user;
 	}
 	
 	
@@ -87,7 +100,7 @@ public class DummyControllerTest {
 			@Override
 			public IllegalArgumentException get() {
 				// TODO Auto-generated method stub
-				return new IllegalArgumentException("해당 유저는 없습니다. id : " + id);
+				return new IllegalArgumentException("해당 사용자가 없습니다~ : " + id);
 			}
 		});
 		// 요청 : 웹브라우저에서 함
