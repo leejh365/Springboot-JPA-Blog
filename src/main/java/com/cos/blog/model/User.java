@@ -33,7 +33,7 @@ public class User {
 	//use-new-id-generator-mappings: false 이면 jsp의 넘버링 전략을 따라가지 않음을 의미함
 	private int id; // 시퀀스(오라클), auto_increment(MySQL)
 	
-	@Column(nullable = false, length = 30)
+	@Column(nullable = false, length = 30, unique = true)
 	private String username; // 아이디
 	
 	@Column(nullable = false, length = 100) //비밀번호 암호화(해쉬)때문에 넉넉히 100
