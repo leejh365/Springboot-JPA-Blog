@@ -39,14 +39,13 @@ public class Board {
 	@Lob //대용량데이터
 	private String content; //써머노트 라이브러리 <html>태그가 섞여서 디자인됨.
 	
-	@ColumnDefault("0") //int 이기때문에 ' '(홑따옴표)안써줘도됨
 	private int count; //조회수
 	
 	@ManyToOne(fetch = FetchType.EAGER) //Board = Many, User = One
 	@JoinColumn(name="userId") //필드명은 userId로 , 연관관계는 ManyToOne으로 만들어짐.
 	private User user; //DB는 오브젝트를 저장할 수 없다. FK를 사용, 자바는 오브젝트를 저장할 수 있다.
 	
-	//하나의게시글과 여러개의답변
+	//하나의게시글과 여러개의답변. select 하기 위한 코드
 	@OneToMany(mappedBy = "board", fetch = FetchType.EAGER) //기본이 FetchType.LAZY 전략임. 
 	//필드이름(board), mappedBy 연관관계의 주인이 아님(FK가 아니라는 뜻. DB에 컬럼을 만들지말아라..Reply의 board가 FK)
 	private List<Reply> reply; // reply : Board 를 select 할때 join문을 통해 값을 얻기위해 필요
