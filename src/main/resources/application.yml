@@ -1,5 +1,5 @@
 server:
-  port: 8000
+  port: 8002
   servlet:
     context-path: /
     encoding:
@@ -22,13 +22,14 @@ spring:
   jpa:
     open-in-view: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
       use-new-id-generator-mappings: false
-    #show-sql: true
+    show-sql: true
     properties:
       hibernate.format_sql: true
+      datasource-initialization: true
 
   jackson:
     serialization:
