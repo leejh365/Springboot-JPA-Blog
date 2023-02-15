@@ -22,11 +22,11 @@ spring:
   jpa:
     open-in-view: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
       use-new-id-generator-mappings: false
-    show-sql: true
+    show-sql: false
     properties:
       hibernate.format_sql: true
       datasource-initialization: true
@@ -34,3 +34,7 @@ spring:
   jackson:
     serialization:
       fail-on-empty-beans: false
+      
+cos:
+  key: cos1234
+      
