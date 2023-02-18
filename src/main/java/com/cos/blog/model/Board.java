@@ -13,9 +13,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -48,7 +51,9 @@ public class Board {
 	//하나의게시글과 여러개의답변. select 하기 위한 코드
 	@OneToMany(mappedBy = "board", fetch = FetchType.EAGER) //기본이 FetchType.LAZY 전략임. 
 	//필드이름(board), mappedBy 연관관계의 주인이 아님(FK가 아니라는 뜻. DB에 컬럼을 만들지말아라..Reply의 board가 FK)
-	private List<Reply> reply; // reply : Board 를 select 할때 join문을 통해 값을 얻기위해 필요
+	@JsonIgnoreProperties({"board", "user"}) //board를 통해 reply를 불러올때만 board, user무시(직접 reply를 호출할땐 무시하지 않음)
+	@OrderBy("id desc")
+	private List<Reply> replys; // reply : Board 를 select 할때 join문을 통해 값을 얻기위해 필요
 	
 	@CreationTimestamp
 	private Timestamp createDate;
